@@ -8,7 +8,7 @@ def load_data(data_path):
     return pd.read_csv(data_path)
 
 #clean data
-def clean_data(df):
+def clean_data_1(df):
     df["duration"] = df["duration"].fillna(0) #On remplace les durees vides par 0
     df["orig_bytes"] = df["orig_bytes"].fillna(0) #On remplace les orig_bytes vides par 0
     df["resp_bytes"] = df["resp_bytes"].fillna(0) #On remplace les resp_bytes vides par 0

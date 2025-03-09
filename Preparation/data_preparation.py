@@ -12,6 +12,7 @@ def clean_data(df):
     df["duration"] = df["duration"].fillna(0) #On remplace les durees vides par 0
     df["orig_bytes"] = df["orig_bytes"].fillna(0) #On remplace les orig_bytes vides par 0
     df["resp_bytes"] = df["resp_bytes"].fillna(0) #On remplace les resp_bytes vides par 0
+    df["service"] = df["service"].fillna("unknow") #On remplace les resp_bytes vides par 0
     df["ts"] = pd.to_datetime(df["ts"], unit="s")
     df["date"] = df["ts"].dt.date   # recupere la date de la colonne ts
     df["heure"] = df["ts"].dt.time  # recupere l'heure de la colonne ts
@@ -37,7 +38,9 @@ def get_csv_files(data_dir):
                 csv_files.append((sub_dir, file))
     return csv_files
 
-# Recuperer les fichiers csv
+
+'''
+# Recuperer les premiers fichiers csv
 data_dir = 'data/brut/UWF_TestZeekData24'
 csv_files = get_csv_files(data_dir)
 print(csv_files)
@@ -51,4 +54,13 @@ for i in csv_files:
     df = clean_data(df)
     data_path = "data/clean/"+sub_dir+".csv"
     save_data(df, data_path)
-    
+'''
+
+#Verifications (affichage des infos de chaque fichier)
+data_path = "data/clean"
+csv_files = get_csv_files(data_path)
+print(csv_files)
+for i in csv_files:
+    df = load_data(data_path+"/"+i[1])
+    print(df.info())
+

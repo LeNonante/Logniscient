@@ -5,10 +5,10 @@ Logniscient est une intelligence artificielle développée pour assister l'équi
 - Detection des comportements malveillants à partir de logs
 
 # Technologies utilisées 🛠️
-Langage : Python
-Machine Learning : LightGBM
-Traitement des logs : Pandas
-Visualisation : Matplotlib / Seaborn
+- Langage : Python
+- Machine Learning : LightGBM
+- Traitement des logs : Pandas
+- Visualisation : Matplotlib / Seaborn
 
 # Installation 📂
 ??

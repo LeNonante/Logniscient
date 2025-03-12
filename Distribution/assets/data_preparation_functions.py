@@ -18,6 +18,7 @@ def clean_data(df:pd.DataFrame):
     df["orig_bytes"] = df["orig_bytes"].fillna(0) #On remplace les orig_bytes vides par 0
     df["resp_bytes"] = df["resp_bytes"].fillna(0) #On remplace les resp_bytes vides par 0
     df["service"] = df["service"].fillna("unknow") #On remplace les service vides par unknow
+    df["history"] = df["history"].fillna("unknow") #On remplace les history vides par 0
 
     #on supprime les colonnes inutiles
     colonnes_a_garder=["conn_state","duration","local_orig","local_resp","protocol","service","history","ts","src_ip","src_port", "orig_bytes","orig_pkts","orig_ip_bytes","dest_ip","dest_port","resp_bytes","resp_pkts","resp_ip_bytes","missed_bytes"]
@@ -30,7 +31,10 @@ def clean_data(df:pd.DataFrame):
 def transform_data(df:pd.DataFrame):
     """Transforme les données du dataframe en paramètre
     
-    On convertit les données en format adapté pour le modèle"""
+    On convertit les données en format adapté pour le modèle
+    
+    Args:
+        df (pd.DataFrame): Le dataframe à transformer"""
 
     df['ts'] = pd.to_datetime(df['ts'], unit='s') #on décompose la colonne ts en plusieurs colonnes
     df['year'] = df['ts'].dt.year
@@ -92,12 +96,11 @@ def open_clean_transform_data(CSV_file:str, liste_colonnes_csv:list):
     
     # Load data
     data = pd.read_csv(CSV_file)
-    
     #Rennomer les colonnes
     for i in range(len(liste_colonnes_csv)):
         ancien_nom = liste_colonnes_csv[i]
-        nouveau_nom = "colonne"+str(i)
-        data.rename(columns={ancien_nom: nouveau_nom})
+        nouveau_nom = liste_colonnes_modele[i]
+        data=data.rename(columns={ancien_nom: nouveau_nom})
 
     # Clean data
     data = clean_data(data)
@@ -106,3 +109,5 @@ def open_clean_transform_data(CSV_file:str, liste_colonnes_csv:list):
     data = transform_data(data)
     
     return data
+
+

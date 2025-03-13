@@ -21,7 +21,7 @@ def clean_data(df:pd.DataFrame):
     df["history"] = df["history"].fillna("unknow") #On remplace les history vides par 0
 
     #on supprime les colonnes inutiles
-    colonnes_a_garder=["conn_state","duration","local_orig","local_resp","protocol","service","history","ts","src_ip","src_port", "orig_bytes","orig_pkts","orig_ip_bytes","dest_ip","dest_port","resp_bytes","resp_pkts","resp_ip_bytes","missed_bytes"]
+    colonnes_a_garder=["conn_state","duration","local_orig","local_resp","protocol","service","history","ts","src_ip","src_port", "orig_bytes","orig_pkts","orig_ip_bytes","dest_ip","dest_port","resp_bytes","resp_pkts","resp_ip_bytes","missed_bytes","ID"]
     for c in df.columns:
         if c not in colonnes_a_garder:
             df.drop(c, axis=1, inplace=True)
@@ -97,10 +97,14 @@ def open_clean_transform_data(CSV_file:str, liste_colonnes_csv:list):
     # Load data
     data = pd.read_csv(CSV_file)
     #Rennomer les colonnes
-    for i in range(len(liste_colonnes_csv)):
+    for i in range(len(liste_colonnes_modele)):
         ancien_nom = liste_colonnes_csv[i]
         nouveau_nom = liste_colonnes_modele[i]
         data=data.rename(columns={ancien_nom: nouveau_nom})
+
+    #On renomme la derniere colonne en ID si elle existe
+    if liste_colonnes_csv[-1].upper()!="NONE" :
+        data=data.rename(columns={liste_colonnes_csv[-1]: "ID"})
 
     # Clean data
     data = clean_data(data)

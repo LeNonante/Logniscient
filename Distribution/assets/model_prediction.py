@@ -24,10 +24,12 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
 
 
     #Sauvegarder la colonne ID et surpprimer ID si elle est présente
+    id_present=False
     if 'ID' in data.columns:
         df_id=data['ID']
         data.drop(columns=['ID'],inplace=True)
-    
+        id_present=True
+
     #Encodage des données catégorielles si nécessaire
     for col, encoder in encoders.items():
         if col in data.columns:
@@ -43,10 +45,20 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     predictions = predictions.argmax(axis=1)
     # Reconvertir en labels textuels pour l'évaluation
     predictions_class = encoders['label_tactic'].inverse_transform(predictions)
-    
+    #reconvertir les labels de data
+    for col in ['conn_state', 'protocol', 'service', 'history']:
+        data[col] = encoders[col].inverse_transform(data[col])
     #Ajouter les prédictions au dataset
     data['Prediction'] = predictions_class
     
     #Renvoyer le DataFrame avec les prédictions
-    data['ID']=df_id
+    if id_present:
+        data['ID']=df_id
+        data=data[['ID','conn_state', 'duration', 'local_orig', 'local_resp', 'protocol',
+            'service', 'history', 'src_ip', 'src_port', 'orig_bytes', 'orig_pkts',
+            'orig_ip_bytes', 'dest_ip', 'dest_port', 'resp_bytes', 'resp_pkts',
+            'resp_ip_bytes', 'missed_bytes', 'Prediction']]
     return data
+
+
+

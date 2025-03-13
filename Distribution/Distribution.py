@@ -5,8 +5,13 @@ from assets.data_preparation_functions import *
 
 import tkinter as tk
 from tkinter import filedialog
-
+import tkinter as tk    
 import  pickle
+
+
+# Initialiser Tkinter
+root = tk.Tk()
+root.withdraw()  # Masquer la fenêtre principale
 
 #1. Recuperation des colonnes du fichier csv
 file_path = filedialog.askopenfilename()
@@ -53,3 +58,13 @@ print(data.columns)
 
 data_predict=load_model_and_predict(model_path="Distribution/assets/lightgbm_model_package.pkl",data=data)
 print(data_predict)
+print(data_predict.columns)
+
+root.deiconify()  # Make sure the root window is visible
+root.update()
+output_path = filedialog.asksaveasfilename(defaultextension=".csv")
+data_predict.to_csv(output_path, index=False)
+root.withdraw()
+
+
+

@@ -22,7 +22,27 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     encoders = model_package['encoders']  # Encodeurs pour les variables catégorielles
     features = model_package['features']  # Liste des features utilisées pour l'entraînement
 
+    print(encoders)
+    # Convertir en tableau NumPy pour accélérer les modifications
+    # Récupérer toutes les colonnes sauf 'label tactique'
+    columns_to_modify = [col for col in encoders.keys() if col != 'label_tactic']
 
+    # Extraire les colonnes à modifier
+    data_array = data[columns_to_modify].values
+    num_rows, num_cols = data_array.shape
+    
+    for i in range(num_rows):
+        # Modifier directement les valeurs
+        for col in columns_to_modify:
+             for j, col in enumerate(encoders.keys()):  # `j` est l'index correspondant dans `data_array`
+                if col != 'label_tactic':
+                    if data_array[i, j] not in encoders[col].classes_:  
+                        data_array[i, j] = "unknown"
+            
+
+    # Remettre les données modifiées dans le DataFrame
+    data[columns_to_modify] = data_array
+    
     #Sauvegarder la colonne ID et surpprimer ID si elle est présente
     id_present=False
     if 'ID' in data.columns:
@@ -34,7 +54,7 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     for col, encoder in encoders.items():
         if col in data.columns:
             data[col] = encoder.transform(data[col].astype(str))
-    
+            
     # Sélection des bonnes colonnes pour la prédiction
     X_new = data[features]
     

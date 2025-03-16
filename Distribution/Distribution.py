@@ -60,7 +60,7 @@ data_predict=load_model_and_predict(model_path="Distribution/assets/lightgbm_mod
 print(data_predict)
 print(data_predict.columns)
 
-root.deiconify()  # Make sure the root window is visible
+root.deiconify()  # pour vérifier que la fenetre est bien visible
 root.update()
 output_path = filedialog.asksaveasfilename(defaultextension=".csv")
 data_predict.to_csv(output_path, index=False)

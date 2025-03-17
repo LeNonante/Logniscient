@@ -50,12 +50,17 @@ def choisir_csv():
             df = pd.read_csv(fichier, nrows=1)  # Lire seulement la première ligne pour récupérer les colonnes
             colonnes = df.columns.tolist()
             colonnes.append("None")  # Ajouter l'option "None" pour les colonnes non utilisées
-            
             # Mettre à jour les listes déroulantes
-            for combobox in column_comboboxes:
+            for i in range(len(column_comboboxes)):
+                print(len(column_comboboxes))
+                combobox = column_comboboxes[i]
                 combobox.configure(values=colonnes)
                 if colonnes:  
-                    combobox.set(colonnes[0])  # Sélectionner la première colonne par défaut
+                    liste_combobox=liste_colonnes_modele
+                    if liste_combobox[i] in colonnes:
+                        combobox.set(liste_combobox[i])  # Sélectionner le meme nom si il est present
+                    else:
+                        combobox.set("Sélectionner une colonne")
         except Exception as e:
             print(f"Erreur lors de la lecture du fichier : {e}")
     

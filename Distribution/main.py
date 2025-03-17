@@ -52,7 +52,6 @@ def choisir_csv():
             colonnes.append("None")  # Ajouter l'option "None" pour les colonnes non utilisées
             # Mettre à jour les listes déroulantes
             for i in range(len(column_comboboxes)):
-                print(len(column_comboboxes))
                 combobox = column_comboboxes[i]
                 combobox.configure(values=colonnes)
                 if colonnes:  

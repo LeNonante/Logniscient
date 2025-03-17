@@ -25,7 +25,7 @@ python --version
 ### Installation des dépendances
 Cloner le projet et installer les dépendances nécessaires :
 ```sh
-git clone https://github.com/VotreRepo/Logniscient.git
+git clone https://github.com/LeNonante/Logniscient.git
 cd Logniscient
 pip install -r requirements.txt
 ```
@@ -37,6 +37,8 @@ pip install -r requirements.txt
    ```
 2. **Sélectionner un fichier CSV** contenant les logs à analyser.
 3. **Remplir les champs** en associant les colonnes du CSV aux catégories requises par le modèle.
+   - Un fois le CSV chargé, les colonnes ayant le même nom que celles attendues seront automatiquement détéctées
+   - Pour les colonnes ayant un nom différent, sélectionnez le nom correspondant dans votre CSV via la liste déroulante
 4. **Valider et choisir un fichier de sortie** pour sauvegarder les résultats de l'analyse.
 
 ## Licence 📜

@@ -1,6 +1,7 @@
 import pickle
 import lightgbm as lgb
 import pandas as pd
+import numpy as np
 
 def load_model_and_predict(model_path: str, data: pd.DataFrame):
     """
@@ -59,10 +60,17 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     X_new = data[features]
     
     #Effectuer les prédictions
-    predictions = gbm.predict(X_new)
-    print(predictions)
+    tableau_predictions = gbm.predict(X_new)
+    print(tableau_predictions)
     #Sélectionner la classe avec la plus haute probabilité
-    predictions = predictions.argmax(axis=1)
+    predictions = tableau_predictions.argmax(axis=1)
+
+    #Sélectionner la probabilité de malveillance (première colonne du tableau numpy)
+    probas = tableau_predictions[:,:1]
+    probas=np.round(probas,4)#On arrondit les probabilités à 4 chiffres après la virgule 
+
+    probas_df = pd.DataFrame(probas, columns=['Probabilité de malveillance'])
+
     # Reconvertir en labels textuels pour l'évaluation
     predictions_class = encoders['label_tactic'].inverse_transform(predictions)
     #reconvertir les labels de data
@@ -70,15 +78,13 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
         data[col] = encoders[col].inverse_transform(data[col])
     #Ajouter les prédictions au dataset
     data['Prediction'] = predictions_class
-    
+    data['Probabilité de malveillance'] = probas
+
     #Renvoyer le DataFrame avec les prédictions
     if id_present:
         data['ID']=df_id
         data=data[['ID','conn_state', 'duration', 'local_orig', 'local_resp', 'protocol',
             'service', 'history', 'src_ip', 'src_port', 'orig_bytes', 'orig_pkts',
             'orig_ip_bytes', 'dest_ip', 'dest_port', 'resp_bytes', 'resp_pkts',
-            'resp_ip_bytes', 'missed_bytes', 'Prediction']]
+            'resp_ip_bytes', 'missed_bytes', 'Prediction','Probabilité de malveillance']]
     return data
-
-
-

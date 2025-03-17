@@ -10,6 +10,7 @@ import  pickle
 import customtkinter as ctk
 from tkinter import *
 from tkinter import filedialog, ttk
+from PIL import Image
 
 def bouton_valider(): 
     #1. Recuperation des colonnes du fichier csv
@@ -66,7 +67,7 @@ ctk.set_default_color_theme("dark-blue")
 # Créer la fenêtre principale
 root = ctk.CTk()
 root.title("Logniscient")
-root.geometry("735x600")
+root.geometry("735x655")
 root.resizable(False, False)
 
 # Conteneur principal
@@ -78,7 +79,11 @@ TEXT_COLOR = "#5A6063"  # Texte beige clair
 ENTRY_BG = "#343638"  # Fond des champs d'entrée
 
 # Titre
-title_label = ctk.CTkLabel(frame, text="Logniscient", font=("Arial", 24, "bold"), text_color="white")
+# Charger l'image avec transparence
+ratio_image = 1/4.7
+img = ctk.CTkImage(light_image=Image.open("Distribution/assets/LogoLogniscient.png"), size=(689*ratio_image, 474*ratio_image))
+#title_label = ctk.CTkLabel(frame, text="Logniscient", font=("Arial", 24, "bold"), text_color="white")
+title_label = ctk.CTkLabel(frame, image=img, text="")
 title_label.grid(row=0, column=0, columnspan=4, pady=10)
 
 # Champ CSV

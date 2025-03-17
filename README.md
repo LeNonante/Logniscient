@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Logo/LogoReadMe.png" alt="Logniscient 🔎" width="400">
+  <img src="Logo/LogoLogniscient.png" alt="Logniscient 🔎" width="400">
 </p>
 
 

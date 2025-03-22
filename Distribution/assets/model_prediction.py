@@ -84,7 +84,7 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     if id_present:
         data['ID']=df_id
         data=data[['ID','conn_state', 'duration', 'local_orig', 'local_resp', 'protocol',
-            'service', 'history', 'src_ip', 'src_port', 'orig_bytes', 'orig_pkts',
-            'orig_ip_bytes', 'dest_ip', 'dest_port', 'resp_bytes', 'resp_pkts',
+            'service', 'history', 'src_port', 'orig_bytes', 'orig_pkts',
+            'orig_ip_bytes', 'dest_port', 'resp_bytes', 'resp_pkts',
             'resp_ip_bytes', 'missed_bytes', 'Prediction','Probabilité de malveillance']]
     return data

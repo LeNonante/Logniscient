@@ -101,11 +101,11 @@ csv_button = ctk.CTkButton(frame, text="Parcourir", width=80, command=choisir_cs
 csv_button.grid(row=1, column=3, padx=10, pady=5)
 
 liste_colonnes_modele = ['conn_state', 'duration', 'ts','local_orig', 'local_resp', 'protocol',
-       'service', 'history', 'src_ip', 'src_port', 'orig_bytes', 'orig_pkts',
-       'orig_ip_bytes', 'dest_ip', 'dest_port', 'resp_bytes', 'resp_pkts',
+       'service', 'history', 'src_port', 'orig_bytes', 'orig_pkts',
+       'orig_ip_bytes', 'dest_port', 'resp_bytes', 'resp_pkts',
        'resp_ip_bytes', 'missed_bytes', "ID Unique de la connexion\n('None' si pas présent)"]
 
-for i in range(10):  # 9 colonnes à gauche
+for i in range(9):  # 9 colonnes à gauche
     label = ctk.CTkLabel(frame, text=liste_colonnes_modele[i], font=("Arial", 12), text_color="white")
     label.grid(row=i+2, column=0, padx=10, pady=5, sticky="e")
     
@@ -114,8 +114,8 @@ for i in range(10):  # 9 colonnes à gauche
     combobox.set("Sélectionner une colonne")
     column_comboboxes.append(combobox)
     
-for i in range(10):  # 9 colonnes à droite
-    label = ctk.CTkLabel(frame, text=liste_colonnes_modele[i+10], font=("Arial", 12), text_color="white")
+for i in range(9):  # 9 colonnes à droite
+    label = ctk.CTkLabel(frame, text=liste_colonnes_modele[i+9], font=("Arial", 12), text_color="white")
     label.grid(row=i+2, column=2, padx=10, pady=5, sticky="e")
 
     combobox = ctk.CTkComboBox(frame, width=200, fg_color=ENTRY_BG, button_color=TEXT_COLOR, button_hover_color="#CCCCCC", state="readonly")

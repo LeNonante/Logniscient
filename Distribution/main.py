@@ -54,7 +54,7 @@ def choisir_csv():
             for i in range(len(column_comboboxes)):
                 combobox = column_comboboxes[i]
                 combobox.configure(values=colonnes)
-                if colonnes:  
+                if colonnes :  
                     liste_combobox=liste_colonnes_modele
                     if liste_combobox[i] in colonnes:
                         combobox.set(liste_combobox[i])  # Sélectionner le meme nom si il est present

@@ -23,7 +23,6 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     encoders = model_package['encoders']  # Encodeurs pour les variables catégorielles
     features = model_package['features']  # Liste des features utilisées pour l'entraînement
 
-    print(encoders)
     # Convertir en tableau NumPy pour accélérer les modifications
     # Récupérer toutes les colonnes sauf 'label tactique'
     columns_to_modify = [col for col in encoders.keys() if col != 'label_tactic']
@@ -61,7 +60,6 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     
     #Effectuer les prédictions
     tableau_predictions = gbm.predict(X_new)
-    print(tableau_predictions)
     #Sélectionner la classe avec la plus haute probabilité
     predictions = tableau_predictions.argmax(axis=1)
 

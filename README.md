@@ -61,7 +61,7 @@ python main.py
 |-------|------------|
 | **conn_state** | État final de la connexion (ex. S0, S1, REJ…). |
 | **duration** | Durée de la connexion. |
-| **ts** | Timestamp du début de la connexion. |
+| **ts** | Timestamp du début de la connexion (en Unix timestamp). |
 | **local_orig** | Indique si l'origine de la connexion est locale. |
 | **local_resp** | Indique si la réponse est locale. |
 | **protocol** | Protocole utilisé (ex. TCP, UDP, ICMP). |

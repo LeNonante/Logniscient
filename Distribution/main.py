@@ -8,9 +8,21 @@ from tkinter import filedialog
 import tkinter as tk    
 import  pickle
 import customtkinter as ctk
+import CTkMessagebox
 from tkinter import *
 from tkinter import filedialog, ttk
 from PIL import Image
+
+
+def message_warning(message, type_message="attention"):
+    """Affiche un message d'alerte"""
+    dico={"attention": ("Avertissement", "warning"),
+          "erreur": ("Erreur","cancel"),
+          "succes":("Succès","check")}
+    title, icon=dico[type_message]
+    CTkMessagebox.CTkMessagebox(title=title, message=message, icon=icon)
+    
+
 
 def bouton_valider(): 
     #1. Recuperation des colonnes du fichier csv
@@ -21,14 +33,10 @@ def bouton_valider():
             liste_colonnes_csv.append(combobox.get())
         #3. Ouverture du fichier et transformation des données
         data=open_clean_transform_data(file_path,liste_colonnes_csv)
-        print(data.head())
-        print(data.shape)
-        print(data.columns)
 
         #4. appel de la fonction de prédiction
         data_predict=load_model_and_predict(model_path="Distribution/assets/lightgbm_model_package.pkl",data=data)
-        print(data_predict)
-        print(data_predict.columns)
+
 
         #5. Sauvegarde du fichier
         output_path = filedialog.asksaveasfilename(defaultextension=".csv")

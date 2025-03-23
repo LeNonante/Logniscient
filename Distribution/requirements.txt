@@ -4,3 +4,4 @@ customtkinter
 Pillow
 lightgbm
 ipaddress
+CTkMessagebox

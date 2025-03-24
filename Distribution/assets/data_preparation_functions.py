@@ -17,8 +17,8 @@ def clean_data(df:pd.DataFrame):
     df["duration"] = df["duration"].fillna(0) #On remplace les durees vides par 0
     df["orig_bytes"] = df["orig_bytes"].fillna(0) #On remplace les orig_bytes vides par 0
     df["resp_bytes"] = df["resp_bytes"].fillna(0) #On remplace les resp_bytes vides par 0
-    df["service"] = df["service"].fillna("unknow") #On remplace les service vides par unknow
-    df["history"] = df["history"].fillna("unknow") #On remplace les history vides par 0
+    df["service"] = df["service"].fillna("unknown") #On remplace les service vides par unknown
+    df["history"] = df["history"].fillna("unknown") #On remplace les history vides par 0
 
     #on supprime les colonnes inutiles
     colonnes_a_garder=["conn_state","duration","local_orig","local_resp","protocol","service","history","ts","src_port", "orig_bytes","orig_pkts","orig_ip_bytes","dest_port","resp_bytes","resp_pkts","resp_ip_bytes","missed_bytes","ID"]

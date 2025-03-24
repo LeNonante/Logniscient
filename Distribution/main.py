@@ -20,8 +20,7 @@ def message_warning(message, type_message="attention"):
           "erreur": ("Erreur","cancel"),
           "succes":("Succès","check")}
     title, icon=dico[type_message]
-    CTkMessagebox.CTkMessagebox(title=title, message=message, icon=icon)
-    
+    CTkMessagebox.CTkMessagebox(title=title, message=message, icon=icon)    
 
 
 def bouton_valider(): 
@@ -31,17 +30,31 @@ def bouton_valider():
         liste_colonnes_csv=[]
         for combobox in column_comboboxes:
             liste_colonnes_csv.append(combobox.get())
-        #3. Ouverture du fichier et transformation des données
-        data=open_clean_transform_data(file_path,liste_colonnes_csv)
-
-        #4. appel de la fonction de prédiction
-        data_predict=load_model_and_predict(model_path="Distribution/assets/lightgbm_model_package.pkl",data=data)
-
-
-        #5. Sauvegarde du fichier
-        output_path = filedialog.asksaveasfilename(defaultextension=".csv")
-        data_predict.to_csv(output_path, index=False)
+        if "Sélectionner une colonne" in liste_colonnes_csv:
+            message_warning("Veuillez selectionner une colonne pour chaque champ")
         
+        elif len(set(liste_colonnes_csv)) != len(liste_colonnes_csv): #Si une colonne est selectionnée deux fois (comparer la taille de la liste avec la taille de la liste sans doublons)
+            message_warning("Veuillez selectionner chaque colonne qu'une seule fois")
+        
+        else:
+            #3. Ouverture du fichier et transformation des données
+            data=open_clean_transform_data(file_path,liste_colonnes_csv)
+
+            #4. appel de la fonction de prédiction
+            data_predict=load_model_and_predict(model_path="Distribution/assets/lightgbm_model_package.pkl",data=data)
+
+
+            #5. Sauvegarde du fichier
+            try :
+                output_path = filedialog.asksaveasfilename(defaultextension=".csv")
+                data_predict.to_csv(output_path, index=False)
+            except FileNotFoundError :
+                message_warning("Veuillez selectionner un fichier valide", "erreur")
+            except Exception as e:
+                message_warning(f"Erreur lors de l'enregistrement du fichier : {e}", "erreur")
+    else :
+        message_warning("Veuillez selectionner un fichier")
+
 
 # Liste pour stocker les ComboBox
 column_comboboxes = []

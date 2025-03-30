@@ -1,5 +1,5 @@
 import pickle
-import lightgbm as lgb
+from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 import numpy as np
 
@@ -19,7 +19,7 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
         model_package = pickle.load(f)
 
     # Récupérer les éléments sauvegardés
-    gbm = model_package['model']  # Modèle entraîné
+    rf_model = model_package['model']  # Modèle entraîné
     encoders = model_package['encoders']  # Encodeurs pour les variables catégorielles
     features = model_package['features']  # Liste des features utilisées pour l'entraînement
 
@@ -59,7 +59,7 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     X_new = data[features]
     
     #Effectuer les prédictions
-    tableau_predictions = gbm.predict(X_new)
+    tableau_predictions = rf_model.predict(X_new)
     #Sélectionner la classe avec la plus haute probabilité
     predictions = tableau_predictions.argmax(axis=1)
 

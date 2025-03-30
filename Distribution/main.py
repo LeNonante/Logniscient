@@ -41,7 +41,7 @@ def bouton_valider():
             data=open_clean_transform_data(file_path,liste_colonnes_csv)
 
             #4. appel de la fonction de prédiction
-            data_predict=load_model_and_predict(model_path="Distribution/assets/lightgbm_model_package.pkl",data=data)
+            data_predict=load_model_and_predict(model_path="Distribution/assets/random_forest_model.pkl",data=data)
 
 
             #5. Sauvegarde du fichier

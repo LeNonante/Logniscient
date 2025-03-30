@@ -55,7 +55,11 @@ python main.py
 - Sélectionnez un fichier **CSV** contenant les logs à analyser.
 - Les colonnes ayant le même nom que celles attendues seront **automatiquement détectées**.
 - Pour les autres, associez-les manuellement via la **liste déroulante** correspondant.
-  
+- Résultat renvoyé :
+    - Le CSV renvoyé est similaire à celui d'entrée. Voici la description des colonnes rajoutées à la fin de celui-ci :
+        - **Prediction** : Peut valoir **malveillant** si cette ligne est identifiée comme malveillante, ou **none** si elle semble sûre.
+        - **Probabilité de malveillance** : Indique la probabilité à laquelle la ligne semble malveillante
+   
 #### Champs attendus
 | Champ | Description |
 |-------|------------|

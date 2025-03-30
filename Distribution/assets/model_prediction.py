@@ -59,8 +59,10 @@ def load_model_and_predict(model_path: str, data: pd.DataFrame):
     X_new = data[features]
     
     #Effectuer les prédictions
-    tableau_predictions = rf_model.predict(X_new)
+    tableau_predictions = rf_model.predict_proba(X_new)
     #Sélectionner la classe avec la plus haute probabilité
+    print(tableau_predictions.shape)
+    print(tableau_predictions)
     predictions = tableau_predictions.argmax(axis=1)
 
     #Sélectionner la probabilité de malveillance (première colonne du tableau numpy)

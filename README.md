@@ -38,7 +38,7 @@ Clonez le projet et installez les dépendances nécessaires :
 ```sh
 git clone https://github.com/LeNonante/Logniscient.git
 cd Logniscient
-pip install -r requirements.txt
+pip install -r Distribution/requirements.txt
 ```
 
 ---
@@ -48,7 +48,7 @@ pip install -r requirements.txt
 #### 1️⃣ Lancer le script
 Exécutez le script principal :
 ```sh
-python main.py
+python Distribution/main.py
 ```
 
 #### 2️⃣ Charger un fichier de logs
